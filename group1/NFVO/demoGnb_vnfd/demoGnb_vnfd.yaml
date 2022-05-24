@@ -1,0 +1,34 @@
+vnfd:vnfd-catalog:
+  vnfd:
+  - connection-point:
+    - name: demoGnb-ext
+    - name: demoGnb-int
+    description: demoGnb VNF
+    id: demoGnbVNF
+    mgmt-interface:
+      cp: demoGnb-ext
+    name: demoGnbVNF
+    short-name: demoGnbVNF
+    vdu:
+    - count: 1
+      description: Simple demoGnb service image
+      id: demoGnb
+      image: demoGnb
+      interface:
+      - external-connection-point-ref: demoGnb-ext
+        name: eth0
+        type: EXTERNAL
+        virtual-interface:
+          type: PARAVIRT
+      - external-connection-point-ref: demoGnb-int
+        name: eth1
+        type: EXTERNAL
+        virtual-interface:
+          type: PARAVIRT
+      name: demoGnb
+      vm-flavor:
+        memory-mb: 4096
+        storage-gb: 40
+        vcpu-count: 2
+    vendor: MNL
+    version: '1.0'
