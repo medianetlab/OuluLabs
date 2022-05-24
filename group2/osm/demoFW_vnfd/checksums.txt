@@ -1,0 +1,1 @@
+80fb1179e53be0025474e6fce91dfc15  dummy_ns_vnfd.yaml
