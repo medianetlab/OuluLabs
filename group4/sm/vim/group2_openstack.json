@@ -1,0 +1,16 @@
+{
+  "id": "vim_group2",
+  "name": "vim_group2",
+  "auth_url": "http://10.161.0.11:5000/v3/",
+  "username": "group2",
+  "password": "group2",
+  "admin_project_name": "group2",
+  "location": "Core",
+  "type": "openstack",
+  "version": "Wallaby",
+  "description": "Group 1 VIM",
+  "infrastructure_monitoring": "10.30.0.224:9177",
+  "config": {
+    "security_groups": "TBD"
+  }
+}

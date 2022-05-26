@@ -2,11 +2,11 @@ nsd-catalog:
   nsd:
   - constituent-vnfd:
     - member-vnf-index: '1'
-      vnfd-id-ref: demoCoreVNF
-    description: group5_demoCore NS for NCSRD
-    id: group5_demoCorensd
-    name: group5_demoCorensd
-    short-name: group5_demoCorensd
+      vnfd-id-ref: demoFWVNF
+    description: group5_demoFW NS for NCSRD
+    id: group5_demoFWnsd
+    name: group5_demoFWnsd
+    short-name: group5_demoFWnsd
     vendor: MNL
     vld:
     - id: staging_net
@@ -17,8 +17,8 @@ nsd-catalog:
       vim-network-name: staging_net
       vnfd-connection-point-ref:
       - member-vnf-index-ref: '1'
-        vnfd-connection-point-ref: demoCore-ext
-        vnfd-id-ref: demoCoreVNF
+        vnfd-connection-point-ref: demoFW-ext
+        vnfd-id-ref: demoFWVNF
     - id: group5_gnb_net
       mgmt-network: false
       name: group5_gnb_net
@@ -26,7 +26,6 @@ nsd-catalog:
       type: ELAN
       vim-network-name: group5_gnb_net
       vnfd-connection-point-ref:
-      - ip-address: 192.168.205.1
-        member-vnf-index-ref: '1'
-        vnfd-connection-point-ref: demoCore-int
-        vnfd-id-ref: demoCoreVNF
+      - member-vnf-index-ref: '1'
+        vnfd-connection-point-ref: demoFW-int
+        vnfd-id-ref: demoFWVNF
