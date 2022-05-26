@@ -1,12 +1,12 @@
 {
-  "id": "group2_osm8",
+  "id": "group4_osm8",
   "name": "",
   "nfvoip": "10.161.5.155",
-  "nfvousername": "group2",
-  "nfvopassword": "group2",
-  "tenantname": "group2",
+  "nfvousername": "group4",
+  "nfvopassword": "group4",
+  "tenantname": "group4",
   "type": "OSM",
   "version": "8",
-  "description": "Group 1 OSM Release 8",
+  "description": "Group 4 OSM Release 8",
   "config": {}
 }

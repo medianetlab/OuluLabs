@@ -1,8 +1,8 @@
 {
     "base_slice_descriptor": {
-        "base_slice_des_id": "group2_demo_slice",
+        "base_slice_des_id": "group4_demo_slice",
         "coverage": [
-            "group2_edge"
+            "group4_edge"
         ],
         "delay_tolerance": true,
         "network_DL_throughput": {
