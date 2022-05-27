@@ -1,0 +1,34 @@
+vnfd:vnfd-catalog:
+  vnfd:
+  - connection-point:
+    - name: demoFW-ext
+    - name: demoFW-int
+    description: demoFW VNF
+    id: demoFWVNF
+    mgmt-interface:
+      cp: demoFW-ext
+    name: demoFWVNF
+    short-name: demoFWVNF
+    vdu:
+    - count: 1
+      description: Simple demoFW service image
+      id: demoFW
+      image: demoFW
+      interface:
+      - external-connection-point-ref: demoFW-ext
+        name: eth0
+        type: EXTERNAL
+        virtual-interface:
+          type: PARAVIRT
+      - external-connection-point-ref: demoFW-int
+        name: eth1
+        type: EXTERNAL
+        virtual-interface:
+          type: PARAVIRT
+      name: demoFW
+      vm-flavor:
+        memory-mb: 4096
+        storage-gb: 40
+        vcpu-count: 2
+    vendor: MNL
+    version: '1.0'

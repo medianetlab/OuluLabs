@@ -1,6 +1,6 @@
 {
-  "id": "group5_demo5GCore",
-  "name": "group5_demo5GCore",
+  "id": "group0_demo5GCore",
+  "name": "group0_demo5GCore",
   "gen": 5,
   "func": 0,
   "shared": {
@@ -11,8 +11,8 @@
   "pnf_list": [],
   "ns_list": [
     {
-      "nsd-id": "8bfc1e2d-422f-4bc8-8fef-a254bf4e895b",
-      "ns-name": "group5_demo5GCore",
+      "nsd-id": "f08b2bbe-45ef-4a62-83cd-33ca1ad43c46",
+      "ns-name": "group0_demo5GCore",
       "placement": 0,
       "optional": false
     }

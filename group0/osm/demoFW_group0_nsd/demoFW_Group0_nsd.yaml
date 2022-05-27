@@ -1,0 +1,31 @@
+nsd-catalog:
+  nsd:
+  - constituent-vnfd:
+    - member-vnf-index: '1'
+      vnfd-id-ref: demoFWVNF
+    description: group0_demoFW NS for NCSRD
+    id: group0_demoFWnsd
+    name: group0_demoFWnsd
+    short-name: group0_demoFWnsd
+    vendor: MNL
+    vld:
+    - id: staging_net
+      mgmt-network: true
+      name: staging_net
+      short-name: staging_net
+      type: ELAN
+      vim-network-name: staging_net
+      vnfd-connection-point-ref:
+      - member-vnf-index-ref: '1'
+        vnfd-connection-point-ref: demoFW-ext
+        vnfd-id-ref: demoFWVNF
+    - id: group0_gnb_net
+      mgmt-network: false
+      name: group0_gnb_net
+      short-name: group0_gnb_net
+      type: ELAN
+      vim-network-name: group0_gnb_net
+      vnfd-connection-point-ref:
+      - member-vnf-index-ref: '1'
+        vnfd-connection-point-ref: demoFW-int
+        vnfd-id-ref: demoFWVNF

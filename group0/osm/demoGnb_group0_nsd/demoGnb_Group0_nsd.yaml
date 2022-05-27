@@ -1,0 +1,32 @@
+nsd-catalog:
+  nsd:
+  - constituent-vnfd:
+    - member-vnf-index: '1'
+      vnfd-id-ref: demoGnbVNF
+    description: group0_demoGnb NS for NCSRD
+    id: group0_demoGnbnsd
+    name: group0_demoGnbnsd
+    short-name: group0_demoGnbnsd
+    vendor: MNL
+    vld:
+    - id: group0_gnb_net
+      mgmt-network: true
+      name: group0_gnb_net
+      short-name: group0_gnb_net
+      type: ELAN
+      vim-network-name: group0_gnb_net
+      vnfd-connection-point-ref:
+      - member-vnf-index-ref: '1'
+        vnfd-connection-point-ref: demoGnb-ext
+        vnfd-id-ref: demoGnbVNF
+    - id: group0_client_net
+      mgmt-network: false
+      name: group0_client_net
+      short-name: group0_client_net
+      type: ELAN
+      vim-network-name: group0_client_net
+      vnfd-connection-point-ref:
+      - ip-address: 192.168.100.1
+        member-vnf-index-ref: '1'
+        vnfd-connection-point-ref: demoGnb-int
+        vnfd-id-ref: demoGnbVNF
