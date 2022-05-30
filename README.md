@@ -16,4 +16,6 @@ OSM is an ETSI-hosted project to develop an Open Source NFV Management and Orche
 
 ![OSM Home Page](images/osm0.PNG)
 
-### 
+### Katana Slice Manager
+
+You will find the Katana Slice Manager server that you will be using instantiated inside your group's instances on OpenStack. Copy the IP address of the VM hosting Katana and use it to open the Katana swagger page at `http://KATANA_IP:8001`. Check the various endpoints and resources supported by Katana.
