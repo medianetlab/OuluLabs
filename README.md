@@ -166,4 +166,85 @@ curl -X POST -H "Content-type: Application/json" http://KATANA_IP:8000/api/funct
 
 ### Create the Slice
 
+To create a network slice, you will need to pass a NEtwork Slice Template (NEST) to katana, calling the appropriate endpoint. Check the NEST file `__nest/groupX_nest.json__` that describes some core parameters of the Slice to be created, such as the coverage area (the demo edge location that you registered), sharing capabilities, QoS characteristics, etc. Use this NEST to create the first slice:
 
+```bash
+curl -X POST -H "Content-type: Application/json" http://KATANA_IP:8000/api/slice -d '@nest/groupX_nest.json'
+# Check the status of the slice
+curl -X GET http://KATANA_IP:8000/api/slice
+```
+
+Keep the id of the new slice, as you will need it later. Check the status of the Slice changing from Provisioning to Activation and finally Running. Then you should be able to see on the OpenStack Dashboard a newly created Tenant that includes the VMs necessary for supporting the Slice services.
+
+![SliceA Deployed VMs](images/SliceA_openstack_VMs.PNG)
+
+In addition to that, the OSM Dashboard will display the new Tenant VIM, as well as the NSs and VNFs that are instantiated as part of the Slice.
+
+![SliceA OSM VIM](images/SliceA_OSM_VIM.PNG)
+
+![SliceA OSM NS](images/SliceA_OSM_NS.PNG)
+
+Go to the client VM console and check that you successfully ping a public IP Address, such as Google's DNS `8.8.8.8`.
+
+![SliceA Client VM](images/SliceA_client.PNG)
+
+Finally, delete the Slice and verify that all the above resources are released:
+
+```bash
+curl -X DELETE http://KATANA_IP:8000/api/slice/<SLICE_ID>
+```
+
+## 4. Create a 5G Slice with an additional FW service
+
+### Edit the NEST
+
+The second Slice will include an extra virtual FW NS that will allow the Slice Manager or an external tool to perform security Day-2 operations. For this Slice you will use the NEST `__nest/groupX_nest_fw.json__`. You must open the file and edit it to include the FW NS in the __service_descriptor__ field. This field must comply to the following format:
+
+```JSON
+"service_descriptor": {
+  "ns_list": [
+    {
+      "nsd-id": "", // The FW NSD id on the NFVO 
+      "ns-name": "", // A descriptive name for the new NS
+      "placement": 0, // 0: Core, 1: Edge
+      "optional": false // Whether the NS is optional or not
+    }
+  ]
+}
+```
+
+> You can check the full specification of the NEST model here: https://github.com/medianetlab/katana-slice_manager/blob/master/templates/gst_model.json
+
+Create the Slice and wait for it to be in running state:
+
+### Create the Slice
+
+```bash
+curl -X POST -H "Content-type: Application/json" http://KATANA_IP:8000/api/slice -d '@nest/groupX_nest_fw.json'
+# Check the status of the slice
+curl -X GET http://KATANA_IP:8000/api/slice
+```
+
+You should be able to see again the new Tenant and VMs on OpenStack, as well as the instantiated NSs and VNFs on OSM. Note that an additional NS has been created using the FW NSD and the name that you specified on the NEST. Once again go to the client VM console and check that you successfully ping a public IP Address, such as Google's DNS `8.8.8.8`.
+
+![SliceA Client VM](images/SliceA_client.PNG)
+
+### Perform a Day-2 action using the Firewall
+
+In this final stage of this lab, you will use the deployed firewall to perform a Day-2 action, blocking any traffic coming from the client node. For this purpose, you will use a script that is included in the Firewall VM. To do that, first you need to get the IP address of the Firewall VM. On the OpenStack dashboard, select the new Slice tenant from the list located at the top-left corner of the window. Go to the "__Project/Instances__" and get the IP address of the Firewall VM. From your terminal, execute the script located in the Firewall VM. The credentials for this VM are __Username: demo__ - __Password: demo__:
+
+```bash
+ssh demo@<FW_IP_ADDRESS> bash -c '/home/demo/block_client_traffic.sh'
+```
+
+![SliceB FW VM](images/SliceB.PNG)
+
+Check again the internet connection on your Client VM. You shouldn't be able to reach anything beyond the demo 5G Core instance.
+
+![SliceB Client VM](images/SliceB_client.PNG)
+
+Finally, delete the Slice and verify that all the above resources are released:
+
+```bash
+curl -X DELETE http://KATANA_IP:8000/api/slice/<SLICE_ID>
+```
