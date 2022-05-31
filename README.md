@@ -69,7 +69,7 @@ Copy the IP address of the VM hosting Katana and use it to open the Katana swagg
 
 ### Create the client VM
 
-Create the VM that will be used as a client node for the demo 5G slices. On the OpenStack dashboard, go to the __Project/Instances__ window and click the __Launch Instance__ button located in the top-right corner. 
+Create the VM that will be used as a client node for the demo 5G slices. On the OpenStack dashboard, go to the __Project/Compute/Instances__ window and click the __Launch Instance__ button located in the top-right corner. 
 
 ![OpenStack Home Page](images/openstack2.PNG)
 
@@ -120,6 +120,8 @@ You will see a new NS and VNF instantiating on the respective tabs. Go to the Op
 
 > OSM documentation: Instantiating an NS: https://osm.etsi.org/docs/user-guide/v10/01-quickstart.html#instantiating-the-ns
 
+__Important__: Delete the NS before proceeding to the next step.
+
 ## 4. Create a simple 5G Slice via Katana Slice Manager
 
 Katana Slice Manager enables the creation of end-to-end 5G Slices. You will use Katana to create a network slice that will include both demo 5G Core and demo gNodeB, allowing your client VM to connect to the Internet. Before creating any slices, you need to add to Katana the configuration files that describe your testbed's available components and services. From your terminal, cd into the Slice Manager and check the different configuration files:
@@ -169,14 +171,14 @@ Before starting using Katana for the creation of network slices, the Katana admi
 curl -X POST -H "Content-type: Application/json" http://KATANA_IP:8000/api/function -d '@functions/demo5gcore.json'
 curl -X POST -H "Content-type: Application/json" http://KATANA_IP:8000/api/function -d '@functions/demo5ggnb.json'
 # Check the registered NSSIs
-    curl -X GET http://KATANA_IP:8000/api/function
+curl -X GET http://KATANA_IP:8000/api/function
 ```
 
 > Refer to [NSSI Documentation Page](https://github.com/medianetlab/katana-slice_manager/wiki/function) for details regarding the NSSIs
 
 ### Create the Slice
 
-To create a network slice, you must pass a NEtwork Slice Template (NEST) to Katana, calling the appropriate endpoint. Check the NEST file `__nest/groupX_nest.json__` that describes some core parameters of the Slice to be created, such as the coverage area (the demo edge location that you registered), sharing capabilities, QoS characteristics, etc. Use this NEST to create the first slice:
+To create a network slice, you must pass a NEtwork Slice Template (NEST) to Katana, calling the appropriate endpoint. Check the NEST file `nest/groupX_nest.json` that describes some core parameters of the Slice to be created, such as the coverage area (the demo edge location that you registered), sharing capabilities, QoS characteristics, etc. Use this NEST to create the first slice:
 
 ```bash
 curl -X POST -H "Content-type: Application/json" http://KATANA_IP:8000/api/slice -d '@nest/groupX_nest.json'
@@ -241,7 +243,7 @@ You should be able to see again the new Tenant and VMs on OpenStack, as well as 
 
 ### Perform a Day-2 action using the Firewall
 
-In this final stage of this lab, you will use the deployed Firewall to perform a Day-2 action, blocking any traffic coming from the client node. For this purpose, you will use a script included in the Firewall VM. To do that, first, you need to get the IP address of the Firewall VM. On the OpenStack dashboard, select the new Slice tenant from the list located at the top-left corner of the window. Go to the "__Project/Instances__" and get the IP address of the Firewall VM. From your terminal, execute the script located in the Firewall VM. The credentials for this VM are __Username: demo__ - __Password: demo__:
+In this final stage of this lab, you will use the deployed Firewall to perform a Day-2 action, blocking any traffic coming from the client node. For this purpose, you will use a script included in the Firewall VM. To do that, first, you need to get the IP address of the Firewall VM. On the OpenStack dashboard, select the new Slice tenant from the list located at the top-left corner of the window. Go to the tab __Project/Compute/Instances__ and get the IP address of the Firewall VM. From your terminal, execute the script located in the Firewall VM. The credentials for this VM are __Username: demo__ - __Password: demo__:
 
 ```bash
 ssh demo@<FW_IP_ADDRESS> bash -c '/home/demo/block_client_traffic.sh'
