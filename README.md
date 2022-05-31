@@ -31,6 +31,17 @@ cd OuluLabs/groupX
 
 ### Connect to the NCSRD premises 
 
+Download your preferred client from the list below:
+
+* Anyconnect 
+  * [Windows](https://www.dropbox.com/s/x03or6v99xlckdy/anyconnect-client-win.msi?dl=0)
+  * [MAC](https://www.dropbox.com/s/6augl8wn85umfuz/anyconnect-macosx-i386-3.1.00495-k9.dmg?dl=0)
+* OpenConnect
+  * [UNIX/MAC/LINUX](http://www.infradead.org/openconnect/) 
+
+Point the client software at the gateway: `mnl-vpn.iit.demokritos.gr`
+
+Use the credentials supplied to you during the lab session.
 
 ### Login to your group's tools
 
