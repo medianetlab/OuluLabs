@@ -18,7 +18,7 @@ The second Slice will be similar to the first one, including an extra virtual Fi
 
 ## 2. Prepare for the lab
 
-> The credentials for the group X are: **Username: groupX** - **Password: groupX**
+> The credentials for all the tools will be provided to you during the lab session
 
 ### Download the lab's Github repository
 
