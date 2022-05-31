@@ -2,10 +2,20 @@
 
 ## 1. Introduction
 
+The first obejctive of these labs is to check and get familiar with the tools that comprise the NFV architecture in the testbed and you will be using for deploying End-to-End virtual services: OpenStack, Open Source MANO, and Katana Slice Manager. You will first create a single OpenStack VM that will act as a client node in your network topology. Then, you will configure and instantiate a NS/VNF via the OSM, creating a part of the 5G service on a specific domain (i.e., the Edge). Finally, you will be called to configure the Katana Slice Manager and create two Network Slices that will establish the demo End-to-End 5G service.
+
 ### End-to-End demo 5G Slice
+
+The first Slice will involve a demo 5G Core that will be deployed at the Core location of the testbed, and a demo gNodeB that will be deployed at the demo edge location of the testbed and will be connected with your Client node. This will allow the Client node to be connected to the Internet.
+
+![Slice A](images/OuluLabs-SimpleSlice.drawio.png)
 
 ### End-to-End demo 5G Slice and Firewall
 
+The second Slice will be similar to the first one, including also an extra virtual Firewall. After creating the Slice and checking the connectivity of the Client node, you will run a Day-2 action on the Firewall, blocking any traffic from that node.
+s
+
+![Slice B](images/OuluLabs-FWSlice.drawio.png)
 
 ## 2. Prepare for the lab
 
