@@ -2,18 +2,17 @@
 
 ## 1. Introduction
 
-The first obejctive of these labs is to check and get familiar with the tools that comprise the NFV architecture in the testbed and you will be using for deploying End-to-End virtual services: OpenStack, Open Source MANO, and Katana Slice Manager. You will first create a single OpenStack VM that will act as a client node in your network topology. Then, you will configure and instantiate a NS/VNF via the OSM, creating a part of the 5G service on a specific domain (i.e., the Edge). Finally, you will be called to configure the Katana Slice Manager and create two Network Slices that will establish the demo End-to-End 5G service.
+The first objective of these labs is to check and get familiar with the tools that comprise the NFV architecture in the testbed and you will be using for deploying End-to-End virtual services: OpenStack, Open Source MANO, and Katana Slice Manager. You will first create a single OpenStack VM that will act as a client node in your network topology. Then, you will configure and instantiate an NS/VNF via the OSM, creating a part of the 5G service on a specific domain (i.e., the Edge). Finally, you will be called to configure the Katana Slice Manager and create two Network Slices that will establish the demo End-to-End 5G service.
 
 ### End-to-End demo 5G Slice
 
-The first Slice will involve a demo 5G Core that will be deployed at the Core location of the testbed, and a demo gNodeB that will be deployed at the demo edge location of the testbed and will be connected with your Client node. This will allow the Client node to be connected to the Internet.
+The first Slice will involve a demo 5G Core that will be deployed at the Core location of the testbed and a demo gNodeB that will be deployed at the demo edge location of the testbed and connected with your Client node. This Slice will allow the Client node to be connected to the Internet.
 
 ![Slice A](images/OuluLabs-SimpleSlice.drawio.png)
 
 ### End-to-End demo 5G Slice and Firewall
 
-The second Slice will be similar to the first one, including also an extra virtual Firewall. After creating the Slice and checking the connectivity of the Client node, you will run a Day-2 action on the Firewall, blocking any traffic from that node.
-s
+The second Slice will be similar to the first one, including an extra virtual Firewall. After creating the Slice and checking the connectivity of the Client node, you will run a Day-2 action on the Firewall, blocking any traffic from that node.
 
 ![Slice B](images/OuluLabs-FWSlice.drawio.png)
 
@@ -37,7 +36,7 @@ cd OuluLabs/groupX
 
 #### OpenStack
 
-OpenStack is the Virtual Infrastructure Manager that you will use for deploying Network Slices. Go the OpenStack home page `http://10.161.0.11/horizon` and log into your account using your group's credential. Navigate around the various windows that present different OpenStack resource objects, such as virtual servers, virtual networks, images, etc.
+OpenStack is the Virtual Infrastructure Manager you will use to deploy Network Slices. Go to the OpenStack home page `http://10.161.0.11/horizon` and log into your account using your group's credential. Navigate around the various windows that present different OpenStack resource objects, such as virtual servers, virtual networks, images, etc.
 
 ![OpenStack Home Page](images/openstack0.PNG)
 
@@ -59,7 +58,7 @@ Copy the IP address of the VM hosting Katana and use it to open the Katana swagg
 
 ### Create the client VM
 
-Create the VM that will be used as a client node for the demo 5G slices. On the OpenStack dashboard, go to the __Project/Instances__ window and click the __Launch Instance__ button located on the top-right corner. 
+Create the VM that will be used as a client node for the demo 5G slices. On the OpenStack dashboard, go to the __Project/Instances__ window and click the __Launch Instance__ button located in the top-right corner. 
 
 ![OpenStack Home Page](images/openstack2.PNG)
 
@@ -82,7 +81,7 @@ Open the VM console and log in using the credentials: __Username: cirros__ - __P
 
 ## 3. Create a single Network Service (NS) via Open Source MANO
 
-OSM allows us to create a virtual NS om a specific domain of the testbed (e.g. Core, edge, etc.). In this example, we will create a demo gNodeB network service. Your client VM will be able to communicate with the new gNodeB, but it won't be able to reach any other network on the Internet, since we will be missing the 5G Core part of the 5G service. The first step is to register the VIM that OSM will use for hosting the NS. From the OSM dashboard go to the __VIM Accounts__ window and click the __New VIM__ button located on the top-right corner.
+OSM allows us to create a virtual NS on a specific testbed domain (e.g., Core, Edge, etc.). In this example, you will create a demo gNodeB network service. Your client VM will be able to communicate with the new gNodeB, but it won't be able to reach any other network on the Internet since you will be missing the 5G Core part of the 5G service. The first step is to register the VIM that OSM will use for hosting the NS. Go to the __VIM Accounts__ window from the OSM dashboard and click the __New VIM__ button located in the top-right corner.
 
 On the pop-up window, select the following properties for the new VIM:
 
@@ -95,7 +94,7 @@ On the pop-up window, select the following properties for the new VIM:
 
 > OSM documentation: Adding VIMs through GUI: https://osm.etsi.org/docs/user-guide/v10/01-quickstart.html#adding-vims-through-gui
 
-Next, go open the __Instances/NS Instances__ window, and click the __New NS__ button button located on the top-right corner to launch a new NS. You will use the demo gNodeB NSD to create a gNodeB instances.
+Next, open the __Instances/NS Instances__ window, and click the __New NS__ button located in the top-right corner to launch a new NS. You will use the demo gNodeB NSD to create a gNodeB instances.
 
 On the pop-up window, select the following properties for the new NS:
 
@@ -104,15 +103,15 @@ On the pop-up window, select the following properties for the new NS:
 * Nsdd Id: groupX_demoGnbnsd
 * Vim Account Id: DemoVIM
 
-You will see a new NS and a new VNF instantiating on the respective tabs. Go to the OpenStack dashboard and check the new VM starting as part of the gNodeB VNF. From your client VM console you should be able to ping the default GW, but nothing else on the Internet. You may now delete the new NS using the OSM Dashboard.
+You will see a new NS and VNF instantiating on the respective tabs. Go to the OpenStack dashboard and check the new VM starting as part of the gNodeB VNF. From your client VM console, you should be able to ping the default GW, but nothing else on the Internet. You may now delete the new NS using the OSM Dashboard.
 
 ![OSM Home Page](images/osm1.PNG)
 
-> OSM documentation: Instantiating a NS: https://osm.etsi.org/docs/user-guide/v10/01-quickstart.html#instantiating-the-ns
+> OSM documentation: Instantiating an NS: https://osm.etsi.org/docs/user-guide/v10/01-quickstart.html#instantiating-the-ns
 
 ## 4. Create a simple 5G Slice via Katana Slice Manager
 
-Katana Slice Manager enables the creation of end-to-end 5G Slices. You will use Katana to create a network slice that will include both demo 5G Core and demo gNodeB, allowing your client VM to connect to the Internet. Before creating any slices, you need to add to Katana the configuration files that describe the available components and services of your testbed. From your terminal, cd into the Slice Manager and check the different configuration files:
+Katana Slice Manager enables the creation of end-to-end 5G Slices. You will use Katana to create a network slice that will include both demo 5G Core and demo gNodeB, allowing your client VM to connect to the Internet. Before creating any slices, you need to add to Katana the configuration files that describe your testbed's available components and services. From your terminal, cd into the Slice Manager and check the different configuration files:
 
 ```bash
 cd sm
@@ -121,13 +120,13 @@ ls
 
 ### Register the available platform locations
 
-The first step for the Katana administrator is to register the available testbed locations. These [locations](location) will be used at a later stage for registering platform components and, eventually, deploying network slices. In your case, you have a dummy edge location (not representing an actual location, since all the services will be deployed within the same OpenStack instances). Add the edge location by running a curl against the Slice Manager location endpoint:
+The first step for the Katana administrator is to register the available testbed locations. These [locations](location) will be used at a later stage for registering platform components and, eventually, deploying network slices. In your case, you have a dummy edge location (not representing an actual location since all the services will be deployed within the same OpenStack instances). Add the edge location by running a curl against the Slice Manager location endpoint:
 
 ```bash
 curl -X POST -H "Content-type: Application/json" http://KATANA_IP:8000/api/location -d '@location/groupX_edge.json'
 ```
 
-You will get back the UUID of the new location. By default, katana uses a default Core location for all Slices. Run a GET request to see all the available locations:
+You will get back the UUID of the new location. By default, Katana uses a default Core location for all Slices. Run a GET request to see all the available locations:
 
 ```bash
 curl -X GET http://KATANA_IP:8000/api/location
@@ -135,16 +134,16 @@ curl -X GET http://KATANA_IP:8000/api/location
 
 ### Register the available testbed components
 
-Before start using Katana for the creation of network slices, the Katana administrator has to execute some configuration steps:
+Before starting using Katana for the creation of network slices, the Katana administrator has to execute some configuration steps:
 
 *  Register MANO layer components:
-    * __VIMs:__ Register the VIM  that will be used for hosting virtual network services instantiated as part of network slices (in your case the OpenStack cloud):
+    * __VIMs:__ Register the VIM  that will be used for hosting virtual network services instantiated as part of network slices (in your case, the OpenStack cloud):
     ```bash
     curl -X POST -H "Content-type: Application/json" http://KATANA_IP:8000/api/vim -d '@vim/groupX_openstack.json'
     # Check the registered VIMs
     curl -X GET http://KATANA_IP:8000/api/vim
     ```
-    * __NFVOs:__ Register the NFVO that will be responsible for the management of the virtual network services (in your case the Open Source MANO)
+    * __NFVOs:__ Register the NFVO that will be responsible for the management of the virtual network services (in your case, the Open Source MANO)
     ```bash
     curl -X POST -H "Content-type: Application/json" http://KATANA_IP:8000/api/nfvo -d '@nfvo/osm8.json'
     # Check the registered NFVOs
@@ -153,7 +152,7 @@ Before start using Katana for the creation of network slices, the Katana adminis
 
     > Refer to [SBI Documentation Page](https://github.com/medianetlab/katana-slice_manager/wiki/sbi) for details regarding how to configure Southbound components
 
-* Add the network functions (NSSIs) that are supported by the underlying platform infrastructure. These will be used during the Slice Mapping phase by the Slice Manager in order to map the slice requirements with the actual slices that are supported by the platform. For this set up you will use two NSSIs, one representing the demo 5G Core and one the demo gNodeB.
+* Add the network functions (NSSIs) supported by the underlying platform infrastructure. These will be used during the Slice Mapping phase by the Slice Manager to map the slice requirements with the actual slices supported by the platform. For this setup, you will use two NSSIs, one representing the demo 5G Core and one the demo gNodeB.
 
 ```bash
 curl -X POST -H "Content-type: Application/json" http://KATANA_IP:8000/api/function -d '@functions/demo5gcore.json'
@@ -166,7 +165,7 @@ curl -X POST -H "Content-type: Application/json" http://KATANA_IP:8000/api/funct
 
 ### Create the Slice
 
-To create a network slice, you will need to pass a NEtwork Slice Template (NEST) to katana, calling the appropriate endpoint. Check the NEST file `__nest/groupX_nest.json__` that describes some core parameters of the Slice to be created, such as the coverage area (the demo edge location that you registered), sharing capabilities, QoS characteristics, etc. Use this NEST to create the first slice:
+To create a network slice, you must pass a NEtwork Slice Template (NEST) to Katana, calling the appropriate endpoint. Check the NEST file `__nest/groupX_nest.json__` that describes some core parameters of the Slice to be created, such as the coverage area (the demo edge location that you registered), sharing capabilities, QoS characteristics, etc. Use this NEST to create the first slice:
 
 ```bash
 curl -X POST -H "Content-type: Application/json" http://KATANA_IP:8000/api/slice -d '@nest/groupX_nest.json'
@@ -174,7 +173,7 @@ curl -X POST -H "Content-type: Application/json" http://KATANA_IP:8000/api/slice
 curl -X GET http://KATANA_IP:8000/api/slice
 ```
 
-Keep the id of the new slice, as you will need it later. Check the status of the Slice changing from Provisioning to Activation and finally Running. Then you should be able to see on the OpenStack Dashboard a newly created Tenant that includes the VMs necessary for supporting the Slice services.
+Keep the id of the new slice, as you will need it later. Check the Slice status changing from Provisioning to Activation and finally Running. Then you should be able to see on the OpenStack Dashboard a newly created Tenant that includes the VMs necessary for supporting the Slice services.
 
 ![SliceA Deployed VMs](images/SliceA_openstack_VMs.PNG)
 
@@ -198,7 +197,7 @@ curl -X DELETE http://KATANA_IP:8000/api/slice/<SLICE_ID>
 
 ### Edit the NEST
 
-The second Slice will include an extra virtual FW NS that will allow the Slice Manager or an external tool to perform security Day-2 operations. For this Slice you will use the NEST `__nest/groupX_nest_fw.json__`. You must open the file and edit it to include the FW NS in the __service_descriptor__ field. This field must comply to the following format:
+The second Slice will include an extra virtual FW NS that will allow the Slice Manager or an external tool to perform security Day-2 operations. For this Slice you will use the NEST `__nest/groupX_nest_fw.json__`. You must open the file and edit it to include the FW NS in the __service_descriptor__ field. This field must comply with the following format:
 
 ```JSON
 "service_descriptor": {
@@ -215,7 +214,7 @@ The second Slice will include an extra virtual FW NS that will allow the Slice M
 
 > You can check the full specification of the NEST model here: https://github.com/medianetlab/katana-slice_manager/blob/master/templates/gst_model.json
 
-Create the Slice and wait for it to be in running state:
+Create the Slice and wait for it to be in a running state:
 
 ### Create the Slice
 
@@ -225,13 +224,13 @@ curl -X POST -H "Content-type: Application/json" http://KATANA_IP:8000/api/slice
 curl -X GET http://KATANA_IP:8000/api/slice
 ```
 
-You should be able to see again the new Tenant and VMs on OpenStack, as well as the instantiated NSs and VNFs on OSM. Note that an additional NS has been created using the FW NSD and the name that you specified on the NEST. Once again go to the client VM console and check that you successfully ping a public IP Address, such as Google's DNS `8.8.8.8`.
+You should be able to see again the new Tenant and VMs on OpenStack, as well as the instantiated NSs and VNFs on OSM. Note that an additional NS has been created using the FW NSD and the name that you specified on the NEST. Once again, go to the client VM console and check that you successfully ping a public IP Address, such as Google's DNS `8.8.8.8`.
 
 ![SliceA Client VM](images/SliceA_client.PNG)
 
 ### Perform a Day-2 action using the Firewall
 
-In this final stage of this lab, you will use the deployed firewall to perform a Day-2 action, blocking any traffic coming from the client node. For this purpose, you will use a script that is included in the Firewall VM. To do that, first you need to get the IP address of the Firewall VM. On the OpenStack dashboard, select the new Slice tenant from the list located at the top-left corner of the window. Go to the "__Project/Instances__" and get the IP address of the Firewall VM. From your terminal, execute the script located in the Firewall VM. The credentials for this VM are __Username: demo__ - __Password: demo__:
+In this final stage of this lab, you will use the deployed Firewall to perform a Day-2 action, blocking any traffic coming from the client node. For this purpose, you will use a script included in the Firewall VM. To do that, first, you need to get the IP address of the Firewall VM. On the OpenStack dashboard, select the new Slice tenant from the list located at the top-left corner of the window. Go to the "__Project/Instances__" and get the IP address of the Firewall VM. From your terminal, execute the script located in the Firewall VM. The credentials for this VM are __Username: demo__ - __Password: demo__:
 
 ```bash
 ssh demo@<FW_IP_ADDRESS> bash -c '/home/demo/block_client_traffic.sh'
@@ -239,7 +238,7 @@ ssh demo@<FW_IP_ADDRESS> bash -c '/home/demo/block_client_traffic.sh'
 
 ![SliceB FW VM](images/SliceB.PNG)
 
-Check again the internet connection on your Client VM. You shouldn't be able to reach anything beyond the demo 5G Core instance.
+Check the internet connection on your Client VM again. You shouldn't be able to reach anything beyond the demo 5G Core instance.
 
 ![SliceB Client VM](images/SliceB_client.PNG)
 
